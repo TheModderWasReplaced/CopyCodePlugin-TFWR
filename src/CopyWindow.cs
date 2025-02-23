@@ -1,7 +1,6 @@
-using ModHelper.API;
+using FarmHelper.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
-using ModHelper.Extensions;
 
 namespace CopyCode;
 
@@ -26,7 +25,7 @@ public static class CopyWindow
 
         if (template == null)
         {
-            FarmPlugin.Msg<CopyCodePlugin>($"The template '{OptionTemplate}' was not found.");
+            Log.Warning($"The template '{OptionTemplate}' was not found.");
             return null;
         }
                     
@@ -36,7 +35,7 @@ public static class CopyWindow
         btn.SetSiblingIndex(template.GetSiblingIndex() + 1);
 
         // Offset to the left
-        btn.transform.localPosition -= new Vector3(ModHelper.Constants.WINDOW_ICON_OFFSET_X, 0);
+        btn.transform.localPosition -= new Vector3(0/*ModHelper.Constants.WINDOW_ICON_OFFSET_X*/, 0);
         
         // Add description
         UpdateToolTip(window);
@@ -45,14 +44,14 @@ public static class CopyWindow
         btn.GetComponent<ColoredButton>().SetListener(() =>
         {
             Copy(window);
-            Saver.Inst.warningPopup.ShowPopup($"'{window.fileName}' was copied successfully!", [
-                new WarningPopup.ButtonData("Ok", Saver.Inst.warningPopup.Close)
+            MainSim.Inst.warningPopup.ShowPopup($"'{window.fileName}' was copied successfully!", [
+                new WarningPopup.ButtonData("Ok", MainSim.Inst.warningPopup.Close)
             ]);
         });
 
         // Set icon
         btn.Find("Image").GetComponent<Image>().LoadSprite<CopyCodePlugin>(
-            "Resources.copy-icon.png", 
+            "CopyCode.Resources.copy-icon.png", 
             64
         );
         

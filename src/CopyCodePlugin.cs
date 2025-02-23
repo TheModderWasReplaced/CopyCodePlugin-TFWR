@@ -1,17 +1,17 @@
 ﻿using BepInEx;
-using ModHelper.API;
+using FarmHelper.API.Attributes;
+using HarmonyLib;
 
 namespace CopyCode;
 
-[BepInPlugin("org.warpersan.plugins.copycode", "Copy Code", "1.0.0.0")]
-public class CopyCodePlugin : FarmPlugin
+[BepInPlugin("org.warpersan.copycode", "Copy Code", "1.0.0.0")]
+[FarmInfo("WarperSan", "https://github.com/WarperSan/CopyCodePlugin-TFWR")]
+public class CopyCodePlugin : BaseUnityPlugin
 {
-    /// <inheritdoc />
-    public override string Author => "WarperSan";
-
-    /// <inheritdoc />
-    protected override void OnAwake()
+    private void Awake()
     {
-        Harmony.PatchAll();
+        var harmony = new Harmony("org.warpersan.copycode");
+        harmony.PatchAll();
+        Log.SetLogger(Logger);
     }
 }
