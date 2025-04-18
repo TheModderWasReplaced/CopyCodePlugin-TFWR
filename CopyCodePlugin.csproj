@@ -24,7 +24,7 @@
     <!-- LIBRARIES -->
     <ItemGroup>
         <!-- DEPENDENCIES -->
-        <Reference Include="$(BepInExPath)/plugins/FarmHelper.dll" />
+        <Reference Include="$(BepInExPath)/plugins/AgriCore.dll" />
 
         <!-- GAME -->
         <Reference Include="$(ManagedPath)/Core.dll" Publicize="true" />

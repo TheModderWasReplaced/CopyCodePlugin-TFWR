@@ -1,5 +1,5 @@
 ﻿using BepInEx;
-using FarmHelper.API.Attributes;
+using AgriCore.API.Attributes;
 using HarmonyLib;
 
 namespace CopyCode;
