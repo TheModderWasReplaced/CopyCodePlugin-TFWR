@@ -1,17 +1,19 @@
 ﻿using BepInEx;
-using AgriCore.API.Attributes;
-using HarmonyLib;
+using Log = CopyCode.Helpers.Log;
+using Patch = CopyCode.Helpers.Patch;
 
 namespace CopyCode;
 
-[BepInPlugin("org.warpersan.copycode", "Copy Code", "1.0.0.0")]
-[FarmInfo("WarperSan", "https://github.com/WarperSan/CopyCodePlugin-TFWR")]
+[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 internal class Plugin : BaseUnityPlugin
 {
-    private void Awake()
-    {
-        var harmony = new Harmony(Info.Metadata.GUID);
-        harmony.PatchAll();
-        Log.SetLogger(Logger);
-    }
+	private void Awake() {
+		Patch.ApplyAll();
+		Log.Info($"{MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} has loaded!");
+	}
+
+	private void OnDestroy() {
+		Patch.RevertAll();
+		Log.Info($"{MyPluginInfo.PLUGIN_GUID} v{MyPluginInfo.PLUGIN_VERSION} has unloaded!");
+	}
 }
